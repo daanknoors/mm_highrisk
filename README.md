@@ -6,7 +6,8 @@ The purpose of this data challenge is to develop a machine learning model for pr
 risk of fast dying or relapsing of newly diagnosed MM patients.
 
 ## Data
-Three data files:
+Download the following three data files and place under data/. Keep the same file names. You might need to register an 
+account first.
 - **expression**: gene expression data: https://www.synapse.org/#!Synapse:syn10573789
 - **clinical**: clinical data + follow-up for newly diagnosed MM patients: https://www.synapse.org/#!Synapse:syn9926878
 - **dictionary**: explanation of the clinical and label annotations: https://www.synapse.org/#!Synapse:syn9744732
