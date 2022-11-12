@@ -15,7 +15,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.feature_selection import VarianceThreshold, SelectKBest, f_classif
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
 
 from src import config

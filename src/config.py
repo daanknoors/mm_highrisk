@@ -4,7 +4,8 @@ from pathlib import Path
 
 # paths
 PATH_PROJECT = Path(os.getcwd()).parent
-PATH_DATA = PATH_PROJECT / 'data'
+PATH_DATA_RAW = PATH_PROJECT / 'data/raw'
+PATH_DATA_PREPROCESSED = PATH_PROJECT / 'data/preprocessed'
 PATH_MODEL = PATH_PROJECT / 'models'
 
 
@@ -12,6 +13,8 @@ PATH_MODEL = PATH_PROJECT / 'models'
 FILENAME_CLINICAL_DATA = 'sc3_Training_ClinAnnotations.csv'
 FILENAME_EXPRESSION_DATA = 'MMRF_CoMMpass_IA9_E74GTF_Salmon_entrezID_TPM_hg19.csv'
 FILENAME_DICTIONARY_DATA = 'Harmonized_Clinical_Dictionary.csv'
+FILENAME_TRAINING_DATA = 'mm_highrisk_train.csv'
+FILENAME_TESTING_DATA = 'mm_highrisk_test.csv'
 
 # config settings
 RANDOM_STATE = 42

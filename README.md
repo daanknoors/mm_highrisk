@@ -6,7 +6,7 @@ The purpose of this data challenge is to develop a machine learning model for pr
 risk of fast dying or relapsing of newly diagnosed MM patients.
 
 ## Data
-Download the following three data files and place under data/. Keep the same file names. You might need to register an 
+Download the following three data files and place under data/raw/. Keep the same file names. You might need to register an 
 account first.
 - **expression**: gene expression data: https://www.synapse.org/#!Synapse:syn10573789
 - **clinical**: clinical data + follow-up for newly diagnosed MM patients: https://www.synapse.org/#!Synapse:syn9926878
@@ -27,7 +27,9 @@ After activating the environment you can open jupyter notebooks using jupyter la
 ## Project structure
 ```bash
 mm_high_risk
-|-- data/ 					                            
+|-- data/ 
+|	|-- preprocessed/
+|	|-- raw/															                            
 |
 |-- docs/												
 |	|-- references/										
