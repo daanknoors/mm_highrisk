@@ -17,32 +17,35 @@ Other datasets and info can be found on the Multiple Myeloma Dream Challenge Sit
 ## Installation
 Create environment using preferred environment manager. For example using conda:
 > conda env create -f environment.yml
+
 > conda activate mm_highrisk
 
 After activating the environment you can open jupyter notebooks using jupyter lab by running the following in terminal:
 > jupyter lab
 
 ## Project structure
+```bash
 mm_high_risk
-|-- data/ 												: place data files here
+|-- data/ 					                            
 |
-|-- docs/												: documentation of project
-|	|-- references/										: literature references
+|-- docs/												
+|	|-- references/										
 |
-|-- models/											    : trained classifiers by name and date trained
+|-- models/											    
 |
-|-- notebooks/											: jupyter notebooks
-|	|-- 000_exploratory_data_analysis.ipynb				: EDA of provided data files
-|	|-- 001_train_model.ipynb							: train classifiers and evaluate performance
+|-- notebooks/											
+|	|-- 000_exploratory_data_analysis.ipynb				
+|	|-- 001_train_model.ipynb							
 |
-|-- src/											    : python modules
+|-- src/											    
 |	|-- __init__.py                                     
-|	|-- config.py                                       : configuration settings and variable constants
-|	|-- gene.py                                       	: extract gene descriptions
-|	|-- model.py                                        : train classifier
-|	|-- preprocess.py									: preprocess data prior to modeling
-|	|-- utils.py                                        : utility functions
-|	|-- visual.py	                                    : visualizations
+|	|-- config.py                                       
+|	|-- gene.py                                       	
+|	|-- model.py                                        
+|	|-- preprocess.py			
+|	|-- utils.py                                      
+|	|-- visual.py	                                    
 |
-|-- environment.yml										: python environment
+|-- environment.yml										
 |-- README.md
+```
