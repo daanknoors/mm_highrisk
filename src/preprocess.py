@@ -17,7 +17,7 @@ def load_expression_data():
 
 
 def load_dictionary_data():
-    return pd.read_csv(config.PATH_DATA_RAW / config.FILENAME_DICTIONARY_DATA)
+    return pd.read_csv(config.PATH_DATA_THESAURI / config.FILENAME_DICTIONARY_DATA)
 
 
 def load_training_data():
@@ -50,7 +50,6 @@ def preprocess_expression_data(df):
 
     # rename columns
     df.columns = ['SampleID'] + ['Entrez_' + str(c) for c in df.columns[1:]]
-    df.columns = df.columns.astype(str)
     return df
 
 
@@ -74,7 +73,7 @@ def create_model_input_data(keep_features=False, save=False):
     if isinstance(keep_features, list):
         df_model = df_model[keep_features]
 
-    df_train, df_test = train_test_split(df_model, test_size=0.2, stratify=df_model['HR_FLAG'],
+    df_train, df_test = train_test_split(df_model, test_size=0.2, stratify=df_model[config.TARGET],
                                          random_state=config.RANDOM_STATE)
     if save:
         df_train.to_csv(config.PATH_DATA_PREPROCESSED / 'mm_highrisk_train.csv', index=False, sep=',')

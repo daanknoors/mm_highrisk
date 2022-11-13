@@ -4,12 +4,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.metrics import precision_recall_curve, average_precision_score, RocCurveDisplay, ConfusionMatrixDisplay
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, balanced_accuracy_score, roc_auc_score
 
 
 from src import model
-from src.config import COlOR_PALETTE
-
+from src import gene
 
 def plot_roc_curve(clf, X_test, y_test, name='Classifier'):
     """Plot ROC Curve"""
@@ -61,10 +60,16 @@ def plot_pr_curve(y_true, y_pred_prob,  marker="."):
     plt.show()
 
 
-def plot_feature_importances(clf, input_features, top=50):
+def plot_feature_importances(clf, input_features, top=50, replace_gene_descriptions=False):
     """Plot feature importances of classifier.
     Requires that classifier has feature importance attribute"""
+
     df_feature_importance = model.get_feature_importance_df(clf, input_features=input_features)
+
+    # for the top 1500 EntrezIDS we scraped the actual name, rename if possible.
+    if replace_gene_descriptions:
+        gene_symbol_dict = gene.get_gene_dict()
+        df_feature_importance['feature'] = df_feature_importance['feature'].replace(gene_symbol_dict)
 
     if top < 25:
         fig, ax = plt.subplots(figsize=(6, 6))
@@ -101,6 +106,7 @@ def plot_top_corrwith_target(corr_target, n_top=25, n_bottom=25):
     plt.ylabel('feature')
     plt.show()
 
+
 def plot_confusion_matrix(clf, X_test, y_test, labels, normalize=None):
     """Plot confusion matrix"""
     fig, ax = plt.subplots()
@@ -118,19 +124,28 @@ def plot_confusion_matrix(clf, X_test, y_test, labels, normalize=None):
 
 
 def model_evaluation_report(clf, X_test, y_test):
-    # print score test data with scoring function used for training
-    print(f'{clf.scoring} test data: {clf.score(X_test, y_test)} \n')
+    """Create a comprehensive model evaluation report that combines several
+    metrics and visualizations."""
 
-    # print classification report
+    # print score test data with scoring function used for training
+    print(f'{clf.scoring} test data: {clf.score(X_test, y_test)}')
+
+    # get the y predictions with default threshold 0.5 and the prediction probabilities
     y_pred = clf.predict(X_test)
     y_pred_proba = clf.predict_proba(X_test)
+
+    # compute roc_auc and balanced accuracy
+    print(f'roc_auc test data: {roc_auc_score(y_test, y_pred_proba[:, 1])}')
+    print(f'balanced_accuracy test data: {balanced_accuracy_score(y_test, y_pred)}\n')
+
+    # print classification report
     print(classification_report(y_test, y_pred))
 
-    # print best params
+    # show params of best performing classifier
     print(f'best params: {clf.best_params_}')
 
     # create plots
-    plot_feature_importances(clf, input_features=list(X_test.columns), top=50)
+    plot_feature_importances(clf, input_features=list(X_test.columns), top=50, replace_gene_descriptions=True)
     plot_roc_curve(clf, X_test, y_test)
     plot_pr_curve(y_test, y_pred_proba[:, 1], marker=None)
     plot_confusion_matrix(clf, X_test, y_test, labels=[0, 1])

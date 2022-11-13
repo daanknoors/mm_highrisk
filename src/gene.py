@@ -4,6 +4,17 @@ from Bio import Entrez
 
 from src.preprocess import load_expression_data
 from src import config
+from src import utils
+
+
+def get_gene_dict():
+    """Get dictionary of Entrez IDs with official description.
+    A file was created with the top 1500 Entrez IDS descriptions. Downloading all Entrez descriptions took to long.
+    """
+    df_entrez = pd.read_csv(config.PATH_DATA_THESAURI / config.FILENAME_GENE_DESCRIPTIONS, delimiter="\t")
+    entrez_symbol_dict = df_entrez[['GeneID', 'Symbol']].set_index('GeneID').to_dict()['Symbol']
+    entrez_symbol_dict = utils.add_prefix_to_dict_keys(entrez_symbol_dict, prefix='Entrez_')
+    return entrez_symbol_dict
 
 
 def create_gene_description_csv(entrez_email):
@@ -18,7 +29,7 @@ def create_gene_description_csv(entrez_email):
 
     # transform to dataframe and save as csv
     df_gene = pd.DataFrame(dict_genes.items(), columns=['EntrezID', 'Description'])
-    df_gene.to_csv(config.PATH_DATA / 'gene_descriptions.csv', index=False)
+    df_gene.to_csv(config.PATH_DATA_RAW / 'gene_descriptions.csv', index=False)
     print(f"Saved gene descriptions at: {config.PATH_MODEL /'gene_descriptions.csv'}")
     return df_gene
 
@@ -37,8 +48,8 @@ def get_single_gene_description(entrez_email, entrez_id, description='full'):
     # create generator of parsed XML
     results = Entrez.parse(handle_fetch)
 
-    entrez_descriptions = {}
     # retrieve the description of the gene and save to dict
+    entrez_descriptions = {}
     for i, r in zip(entrez_id, results):
         if description == 'full':
             entrez_descriptions[i] = r
@@ -47,7 +58,8 @@ def get_single_gene_description(entrez_email, entrez_id, description='full'):
     handle_fetch.close()
     return entrez_descriptions
 
-def get_gene_descriptions(entrez_email, entrez_ids):
+
+def get_multiple_gene_descriptions(entrez_email, entrez_ids):
     """Get all gene descriptions. Requires you to specify an Entrez email address"""
     Entrez.email = entrez_email
 
@@ -68,9 +80,8 @@ def get_gene_descriptions(entrez_email, entrez_ids):
     # create generator of parsed XML
     results = Entrez.parse(handle_fetch)
 
-    entrez_descriptions = {}
-
     # retrieve the description of the gene and save to dict
+    entrez_descriptions = {}
     for i, r in zip(entrez_ids, results):
         entrez_descriptions[i] = r['Entrezgene_gene']['Gene-ref']['Gene-ref_locus']
 

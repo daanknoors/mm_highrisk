@@ -21,7 +21,7 @@ Create environment using preferred environment manager. For example using conda:
 
 > conda activate mm_highrisk
 
-After activating the environment you can open jupyter notebooks using jupyter lab by running the following in terminal:
+After activating the environment you can open jupyter notebooks using jupyter lab by running the following in the terminal:
 > jupyter lab
 
 ## Project structure
@@ -29,7 +29,8 @@ After activating the environment you can open jupyter notebooks using jupyter la
 mm_high_risk
 |-- data/ 
 |	|-- preprocessed/
-|	|-- raw/															                            
+|	|-- raw/	
+|	|-- thesuari/															                            										                            
 |
 |-- docs/												
 |	|-- references/										
@@ -39,6 +40,7 @@ mm_high_risk
 |-- notebooks/											
 |	|-- 000_exploratory_data_analysis.ipynb				
 |	|-- 001_train_model.ipynb							
+|	|-- 002_evaluate_model.ipynb							
 |
 |-- src/											    
 |	|-- __init__.py                                     

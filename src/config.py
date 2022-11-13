@@ -6,22 +6,23 @@ from pathlib import Path
 PATH_PROJECT = Path(os.getcwd()).parent
 PATH_DATA_RAW = PATH_PROJECT / 'data/raw'
 PATH_DATA_PREPROCESSED = PATH_PROJECT / 'data/preprocessed'
+PATH_DATA_THESAURI = PATH_PROJECT / 'data/thesauri'
 PATH_MODEL = PATH_PROJECT / 'models'
-
 
 # filenames
 FILENAME_CLINICAL_DATA = 'sc3_Training_ClinAnnotations.csv'
 FILENAME_EXPRESSION_DATA = 'MMRF_CoMMpass_IA9_E74GTF_Salmon_entrezID_TPM_hg19.csv'
 FILENAME_DICTIONARY_DATA = 'Harmonized_Clinical_Dictionary.csv'
+FILENAME_GENE_DESCRIPTIONS = 'entrez_id_ncbi_description.txt'
 FILENAME_TRAINING_DATA = 'mm_highrisk_train.csv'
 FILENAME_TESTING_DATA = 'mm_highrisk_test.csv'
 
 # config settings
 RANDOM_STATE = 42
+SCORING_FUNCTION = 'average_precision'
 COlOR_PALETTE = ["#393e46", "#00cde3", "#ff5722", "#d72323"]
 
 # features categories
-
 FEATURES_DEMOGRAPHICS = ['D_Age', 'D_Gender', 'D_OS', 'D_OS_FLAG', 'D_ISS', 'D_PFS', 'D_PFS_FLAG']
 FEATURES_CYTO = ['CYTO_predicted_feature_01', 'CYTO_predicted_feature_02', 'CYTO_predicted_feature_03',
                  'CYTO_predicted_feature_04', 'CYTO_predicted_feature_05', 'CYTO_predicted_feature_06',
@@ -29,10 +30,10 @@ FEATURES_CYTO = ['CYTO_predicted_feature_01', 'CYTO_predicted_feature_02', 'CYTO
                  'CYTO_predicted_feature_10', 'CYTO_predicted_feature_11', 'CYTO_predicted_feature_12',
                  'CYTO_predicted_feature_13', 'CYTO_predicted_feature_14', 'CYTO_predicted_feature_15',
                  'CYTO_predicted_feature_16', 'CYTO_predicted_feature_17', 'CYTO_predicted_feature_18']
+FEATURES_MINIMAL = ['D_Age', 'D_ISS', 'Entrez_26147', 'Entrez_7468']
 
 FEATURES_NOMINAL = ['D_Gender']
 FEATURES_ORDINAL = ['D_Age', 'D_ISS']
-
 FEATURES_DROP = ['SampleID', 'Study', 'Patient', 'D_OS', 'D_PFS', 'D_OS_FLAG', 'D_PFS_FLAG',
                  'PatientType', 'MA_probeLevelExpFile',
                  'MA_probeLevelExpFileSamplId', 'MA_geneLevelExpFile',
