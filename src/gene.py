@@ -25,7 +25,7 @@ def create_gene_description_csv(entrez_email):
     entrez_ids = list(df_expression_raw.iloc[:, 0].astype(str))
 
     # get descriptions of each gene
-    dict_genes = get_gene_descriptions(entrez_email, entrez_ids)
+    dict_genes = get_multiple_gene_descriptions(entrez_email, entrez_ids)
 
     # transform to dataframe and save as csv
     df_gene = pd.DataFrame(dict_genes.items(), columns=['EntrezID', 'Description'])
