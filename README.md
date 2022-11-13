@@ -2,8 +2,7 @@
 Daan Knoors - 11/11/22
 
 ## Objective
-The purpose of this data challenge is to develop a machine learning model for predicting the 
-risk of fast dying or relapsing of newly diagnosed MM patients.
+Develop a machine learning model for predicting the risk of fast dying or relapsing of newly diagnosed MM patients.
 
 ## Data
 Download the following three data files and place under data/raw/. Keep the same file names. You might need to register an 
